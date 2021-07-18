@@ -47,7 +47,10 @@ while ($true) {
         Write-Host "  - $(Get-Date) testing for changes ..."
         $infoUrl = $config.RepositoryInformationUrl + "?user=" + $config.GithubUsername + "&repository=" + $config.GithubRepository
         $lastPushInfoFromTheWeb = (Invoke-WebRequest $infoUrl).Content
-        $previousState = Get-Content $previousStateFilename 
+        $previousState = ""
+        if ( Test-Path $previousStateFilename ) {
+            $previousState = Get-Content $previousStateFilename 
+        }
 
         if ($lastPushInfoFromTheWeb -ne $previousState) {
            Write-Host "  - $(Get-Date) I detected that something has changed"

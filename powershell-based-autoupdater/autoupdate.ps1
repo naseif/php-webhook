@@ -15,7 +15,7 @@ $configFilename = "config.json"
 if (-not (Test-Path $configFilename)) {
     $config | ConvertTo-Json | Out-File $configFilename
 
-    Write-Host "I could not find a confg file, so I created one for you to complete."
+    Write-Host "I could not find a config file, so I created one for you to complete."
     Write-Host "Look for $configFilename in the directory that contains this script."
     exit
 } else {
@@ -47,7 +47,10 @@ while ($true) {
         Write-Host "  - $(Get-Date) testing for changes ..."
         $infoUrl = $config.RepositoryInformationUrl + "?user=" + $config.GithubUsername + "&repository=" + $config.GithubRepository
         $lastPushInfoFromTheWeb = (Invoke-WebRequest $infoUrl).Content
-        $previousState = Get-Content $previousStateFilename 
+        $previousState = ""
+        if ( Test-Path $previousStateFilename ) {
+            $previousState = Get-Content $previousStateFilename 
+        }
 
         if ($lastPushInfoFromTheWeb -ne $previousState) {
            Write-Host "  - $(Get-Date) I detected that something has changed"

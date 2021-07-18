@@ -55,7 +55,7 @@ while ($true) {
 
         if ($lastPushInfoFromTheWeb -ne $previousState) {
            Write-Host "  - $(Get-Date) I detected that something has changed"
-           &$config.ExecuteOnChange
+           Invoke-Expression $config.ExecuteOnChange
            $lastPushInfoFromTheWeb | Out-File $previousStateFilename 
         }
     }

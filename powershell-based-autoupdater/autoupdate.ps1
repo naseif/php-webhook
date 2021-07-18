@@ -15,7 +15,7 @@ $configFilename = "config.json"
 if (-not (Test-Path $configFilename)) {
     $config | ConvertTo-Json | Out-File $configFilename
 
-    Write-Host "I could not find a confg file, so I created one for you to complete."
+    Write-Host "I could not find a config file, so I created one for you to complete."
     Write-Host "Look for $configFilename in the directory that contains this script."
     exit
 } else {

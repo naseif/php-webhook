@@ -56,6 +56,7 @@ while ($true) {
         if ($lastPushInfoFromTheWeb -ne $previousState) {
            Write-Host "  - $(Get-Date) I detected that something has changed"
            Invoke-Expression $config.ExecuteOnChange
+           Set-Location $PSScriptRoot
            $lastPushInfoFromTheWeb | Out-File $previousStateFilename 
         }
     }

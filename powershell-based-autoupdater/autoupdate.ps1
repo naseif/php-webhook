@@ -1,6 +1,6 @@
 #!/snap/bin/pwsh
 Set-Location $PSScriptRoot
-$ErrorActionPreference = "Error"
+$ErrorActionPreference = "Stop"
 
 # Ensure config file is available
 $config = New-Object -TypeName PSObject -Property @{
@@ -44,6 +44,7 @@ Write-Host "  - $(Get-Date) Looking for updates for $($config.GithubUsername)/$(
 $previousStateFilename = ($config.GithubUsername + "_" + $config.GithubRepository) + ".state"
 while ($true) {
     try {
+        Start-Sleep -Seconds $config.WaitTimeInSeconds 
         Write-Host "  - $(Get-Date) testing for changes ..."
         $infoUrl = $config.RepositoryInformationUrl + "?user=" + $config.GithubUsername + "&repository=" + $config.GithubRepository
         $lastPushInfoFromTheWeb = (Invoke-WebRequest $infoUrl).Content
@@ -57,8 +58,6 @@ while ($true) {
            &$config.ExecuteOnChange
            $lastPushInfoFromTheWeb | Out-File $previousStateFilename 
         }
-
-        Start-Sleep -Seconds $config.WaitTimeInSeconds 
     }
     catch {
         Write-Host $_

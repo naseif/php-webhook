@@ -1,7 +1,7 @@
 # php-webhook
 A php github webhook script
 
-## description
+## Description
 
 This repository contains two PHP scripts:
 1) index.php
@@ -28,13 +28,13 @@ https://yourserver.com/index.php?username=githubuser&repository=githubrepo
 
 Returns the timestamp of the last push to github for the given repository.
 
-## usage
+## Usage
 
 You put the webhook url in your github repository configuration.
 Then you need to have a script ready that executes somewhere on your server that requests the last timestamp from your index.php-copy. 
 Every time the timestamp changes perform certain actions.
 
-## setup
+## Setup
 
 - Copy the php files onto your server into your php supporting webspace.
 - Create a mysql database.

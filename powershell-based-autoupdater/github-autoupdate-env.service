@@ -1,0 +1,13 @@
+[Unit]
+Description=github based autoupdater
+Documentation=https://github.com/stho32/php-webhook
+After=network.target
+
+[Service]
+Type=simple
+User=developer
+ExecStart=/usr/bin/bash /home/developer/php-webhook/powershell-based-autoupdater/execute-service.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
